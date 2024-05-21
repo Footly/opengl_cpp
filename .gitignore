@@ -1,0 +1,3 @@
+#ignore all build folders on whatever level they are
+**/build/
+c_cpp_properties.json

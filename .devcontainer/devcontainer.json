@@ -1,0 +1,21 @@
+{
+    "name": "tower_defense",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.cmake-tools",
+                "zchrissirhcz.cmake-highlight",
+                "spencerwmiles.vscode-task-buttons",
+                "bierner.markdown-preview-github-styles",
+                "jebbs.plantuml",
+                "mhutchie.git-graph"
+            ]
+        }
+    }
+}
