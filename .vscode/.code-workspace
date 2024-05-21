@@ -1,0 +1,73 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": ".."
+        }
+    ],
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "configuring",
+                "type": "shell",
+                "command": "$TASKS_PATH/configure.sh ${command:cmake.activeFolderPath}"
+            },
+            {
+                "label": "building",
+                "type": "shell",
+                "command": "$TASKS_PATH/build.sh ${command:cmake.activeFolderPath}"
+            },
+            {
+                "label": "cleaning",
+                "type": "shell",
+                "command": "$TASKS_PATH/clean.sh ${command:cmake.activeFolderPath}"
+            },
+            {
+                "label": "running",
+                "type": "shell",
+                "command": "$TASKS_PATH/run.sh ${command:cmake.activeFolderPath}"
+            }
+        ]
+    },
+    "settings": {
+        "git-graph.showStatusBarItem": false,
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+        "cmake.options.statusBarVisibility": "hidden",
+        "cmake.configureOnOpen": false,
+        "cmake.options.advanced": {
+            "folder": {
+                "statusBarVisibility": "visible"
+            },
+            "build": {
+                "inheritDefault": "hidden"
+            },
+            "debug": {
+                "inheritDefault": "hidden"
+            },
+            "launch": {
+                "inheritDefault": "hidden"
+            }
+        },
+        "VsCodeTaskButtons.showCounter": false,
+        "VsCodeTaskButtons.tasks": [
+            {
+                "label": "Clean🧹",
+                "task": "cleaning"
+            },
+            {
+                "label": "Configure🧰",
+                "task": "configuring"
+            },
+            {
+                "label": "Build🔨",
+                "task": "building"
+            },
+            {
+                "label": "Run🚀",
+                "task": "running"
+            }
+        ]
+    }
+}
