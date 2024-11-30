@@ -110,13 +110,8 @@ int main(void) {
     // First function called in the loop
     window.startup();
 
-    //Get the current time
-    float timeValue = glfwGetTime();
-    float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-    int vertexColorLocation = glGetUniformLocation(
-        shaderProgramChangeColorByUniform.get(), "ourColor");
-    shaderProgramChangeColorByUniform();
-    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+    //Use the shader program
+    shaderProgramOrange();
 
     //Draw the triangle
     vertexTriangle.bind();

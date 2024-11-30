@@ -6,33 +6,20 @@
 
 using namespace shaders;
 
-const char* vertexShaderSource =
-    "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"  // position has attribute position 0
-    "layout (location = 1) in vec3 aColor;\n"  // color has attribute position 1
-    "out vec3 ourColor;\n"  // output a color to the fragment shader
-    "void main()\n"
-    "{\n"
-    " gl_Position = vec4(aPos, 1.0);\n"
-    " ourColor = aColor;\n"  // set ourColor to input color from the vertex data
-    "}\0";
-
-const char* fragmentShaderSource =
-    "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "in vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    " FragColor = vec4(ourColor, 1.0);\n"
-    "}\n\0";
-
 int main(void) {
   // Initialize window
   Window window(800, 600, "OpenGL");
 
+  const std::string pathVertexShader =
+      "/workspaces/opengl_cpp/examples/basic_integration_opengl/shaders/vertex/"
+      "simple_vertex_shader_with_colors.vert";
+  const std::string pathFragmentShader =
+      "/workspaces/opengl_cpp/examples/basic_integration_opengl/shaders/"
+      "fragment/simple_fragment_shader.frag";
+
   //Create Vertex Shader and Fragment Shader
-  const Shader vertexShader(vertexShaderSource, Type::VERTEX);
-  const Shader fragmentShader(fragmentShaderSource, Type::FRAGMENT);
+  const Shader vertexShader(pathVertexShader, Type::VERTEX);
+  const Shader fragmentShader(pathFragmentShader, Type::FRAGMENT);
 
   //Create Shader Program by linking the shaders
   const ShaderProgram shaderProgramWithAttributes(
