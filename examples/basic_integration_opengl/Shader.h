@@ -88,7 +88,7 @@ class ShaderProgram {
 
   // Set uniforms. Uniforms can be float, integer, unsigned integer. Pass std string reference and initializer list
   void setUniform(const std::string& name,
-                  std::initializer_list<float> values) {
+                  std::initializer_list<float> values) const {
     //Static assert to check if the size of the initializer list is less than 4
     if (values.size() > 4) {
       throw std::runtime_error("Number of values should be less than 4");
@@ -124,7 +124,8 @@ class ShaderProgram {
     }
   }
 
-  void setUniform(const std::string& name, std::initializer_list<int> values) {
+  void setUniform(const std::string& name,
+                  std::initializer_list<int> values) const {
     if (values.size() > 4) {
       throw std::runtime_error("Number of values should be less than 4");
     }
@@ -151,7 +152,7 @@ class ShaderProgram {
   }
 
   void setUniform(const std::string& name,
-                  std::initializer_list<unsigned int> values) {
+                  std::initializer_list<unsigned int> values) const {
     if (values.size() > 4) {
       throw std::runtime_error("Number of values should be less than 4");
     }
