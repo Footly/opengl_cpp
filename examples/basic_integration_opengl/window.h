@@ -28,6 +28,15 @@ class Window {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
       throw std::runtime_error("Failed to initialize Glad");
     }
+
+    //Set Viewport
+    glViewport(0, 0, width_, height_);
+
+    //Add callback as an arrow function to resize the window
+    glfwSetFramebufferSizeCallback(
+        window_, [](GLFWwindow* window, int width, int height) {
+          glViewport(0, 0, width, height);
+        });
   }
   ~Window() {
     // Cleanup code here
@@ -43,8 +52,8 @@ class Window {
     processInput();
   }
 
-  //Create cleanup function
-  void cleanup() {
+  //Create render function
+  void render() {
     //Swap Buffers
     swapBuffers();
     //Poll Events
