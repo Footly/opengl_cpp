@@ -99,11 +99,6 @@ class Vertex {
 
   void setupAttributes(const std::vector<VertexAttribute>& attributes) {
     for (const auto& attr : attributes) {
-      std::cout << "Setting up attribute " << attr.index << std::endl;
-      std::cout << "Size: " << attr.size << std::endl;
-      std::cout << "Normalized: " << attr.normalized << std::endl;
-      std::cout << "Stride: " << attr.stride << std::endl;
-      std::cout << "Offset: " << attr.offset << std::endl;
       glVertexAttribPointer(attr.index, attr.size, GL_FLOAT, attr.normalized,
                             attr.stride, (void*)(intptr_t)attr.offset);
       glEnableVertexAttribArray(attr.index);
