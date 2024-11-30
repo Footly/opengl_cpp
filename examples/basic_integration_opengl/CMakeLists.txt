@@ -34,12 +34,24 @@ if(NOT glad_POPULATED)
     add_subdirectory(${glad_SOURCE_DIR} ${glad_BINARY_DIR})
 endif()
 
+#set libraries dependencies
+set(LIBS glfw glad)
+
 
 #Create a main executable and link the GLFW library
-add_executable(basic_integration_opengl main.cpp)
+add_executable(simple_first_shaders main_first_shaders.cpp)
 
 #Add directories interfaces
-target_include_directories(basic_integration_opengl PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(simple_first_shaders PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 #Link the GLFW library
-target_link_libraries(basic_integration_opengl glfw glad)
+target_link_libraries(simple_first_shaders ${LIBS})
+
+#Creat another main_executable
+add_executable(shaders_with_attributes main_shaders_with_attributes.cpp)
+
+#Add directories interfaces
+target_include_directories(shaders_with_attributes PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+#Link the GLFW library
+target_link_libraries(shaders_with_attributes ${LIBS})
