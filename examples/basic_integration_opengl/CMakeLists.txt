@@ -37,21 +37,7 @@ endif()
 #set libraries dependencies
 set(LIBS glfw glad)
 
-
-#Create a main executable and link the GLFW library
-add_executable(simple_first_shaders main_first_shaders.cpp)
-
-#Add directories interfaces
-target_include_directories(simple_first_shaders PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
-#Link the GLFW library
-target_link_libraries(simple_first_shaders ${LIBS})
-
-#Creat another main_executable
-add_executable(shaders_with_attributes main_shaders_with_attributes.cpp)
-
-#Add directories interfaces
-target_include_directories(shaders_with_attributes PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
-#Link the GLFW library
-target_link_libraries(shaders_with_attributes ${LIBS})
+#add subdirectories for each executable
+add_subdirectory(first_shader)
+add_subdirectory(shader_with_attributes)
+add_subdirectory(first_texture)
