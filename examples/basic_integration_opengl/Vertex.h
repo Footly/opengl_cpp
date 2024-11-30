@@ -3,73 +3,40 @@
 #include <iostream>
 #include <vector>
 
+struct VertexAttribute {
+  unsigned int index{0};
+  int size{0};
+  bool normalized{false};
+  int stride{0};
+  int offset{0};
+
+  VertexAttribute(int index, int size, bool normalized, int stride, int offset)
+      : index(index),
+        size(size),
+        normalized(normalized),
+        stride(stride),
+        offset(offset) {}
+};
+
 class Vertex {
  public:
   enum class DrawType { STREAM, STATIC, DYNAMIC };
 
-  // Constructor for only VBO
+  // Constructor for only VBO with attributes
   Vertex(const std::vector<float>& vertices,
+         const std::vector<VertexAttribute>& attributes,
          DrawType drawType = DrawType::STATIC) {
-    // Create Vertex Array Object
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    // Create Vertex Buffer Object
-    glGenBuffers(1, &VBO);
-    // Bind the buffer to the GL_ARRAY_BUFFER target
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // Copy the vertices data into the buffer's memory
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
-                 vertices.data(),
-                 drawType == DrawType::STATIC    ? GL_STATIC_DRAW
-                 : drawType == DrawType::DYNAMIC ? GL_DYNAMIC_DRAW
-                                                 : GL_STREAM_DRAW);
-
-    // How to interpret the vertex data
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                          (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // Unbind the VAO
-    glBindVertexArray(0);
+    initialize(vertices, drawType, attributes);
   }
 
-  // Constructor for VBO + EBO
+  // Constructor for VBO + EBO with attributes
   Vertex(const std::vector<float>& vertices,
          const std::vector<unsigned int>& indices,
+         const std::vector<VertexAttribute>& attributes,
          DrawType drawType = DrawType::STATIC) {
-    // Create Vertex Array Object
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    // Create Vertex Buffer Object
-    glGenBuffers(1, &VBO);
-    // Bind the buffer to the GL_ARRAY_BUFFER target
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // Copy the vertices data into the buffer's memory
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
-                 vertices.data(),
-                 drawType == DrawType::STATIC    ? GL_STATIC_DRAW
-                 : drawType == DrawType::DYNAMIC ? GL_DYNAMIC_DRAW
-                                                 : GL_STREAM_DRAW);
-
-    // Create Element Buffer Object
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
-                 indices.data(),
-                 drawType == DrawType::STATIC    ? GL_STATIC_DRAW
-                 : drawType == DrawType::DYNAMIC ? GL_DYNAMIC_DRAW
-                                                 : GL_STREAM_DRAW);
-
-    // How to interpret the vertex data
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                          (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // Unbind the VAO (the EBO stays bound to the VAO)
-    glBindVertexArray(0);
+    initialize(vertices, indices, drawType, attributes);
   }
+
   ~Vertex() {
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
@@ -84,4 +51,62 @@ class Vertex {
   unsigned int VBO;
   unsigned int VAO;
   unsigned int EBO;
+
+  void initialize(const std::vector<float>& vertices, DrawType drawType,
+                  const std::vector<VertexAttribute>& attributes) {
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
+                 vertices.data(),
+                 drawType == DrawType::STATIC    ? GL_STATIC_DRAW
+                 : drawType == DrawType::DYNAMIC ? GL_DYNAMIC_DRAW
+                                                 : GL_STREAM_DRAW);
+
+    setupAttributes(attributes);
+
+    glBindVertexArray(0);
+  }
+
+  void initialize(const std::vector<float>& vertices,
+                  const std::vector<unsigned int>& indices, DrawType drawType,
+                  const std::vector<VertexAttribute>& attributes) {
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
+                 vertices.data(),
+                 drawType == DrawType::STATIC    ? GL_STATIC_DRAW
+                 : drawType == DrawType::DYNAMIC ? GL_DYNAMIC_DRAW
+                                                 : GL_STREAM_DRAW);
+
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+                 indices.data(),
+                 drawType == DrawType::STATIC    ? GL_STATIC_DRAW
+                 : drawType == DrawType::DYNAMIC ? GL_DYNAMIC_DRAW
+                                                 : GL_STREAM_DRAW);
+
+    setupAttributes(attributes);
+
+    glBindVertexArray(0);
+  }
+
+  void setupAttributes(const std::vector<VertexAttribute>& attributes) {
+    for (const auto& attr : attributes) {
+      std::cout << "Setting up attribute " << attr.index << std::endl;
+      std::cout << "Size: " << attr.size << std::endl;
+      std::cout << "Normalized: " << attr.normalized << std::endl;
+      std::cout << "Stride: " << attr.stride << std::endl;
+      std::cout << "Offset: " << attr.offset << std::endl;
+      glVertexAttribPointer(attr.index, attr.size, GL_FLOAT, attr.normalized,
+                            attr.stride, (void*)(intptr_t)attr.offset);
+      glEnableVertexAttribArray(attr.index);
+    }
+  }
 };
