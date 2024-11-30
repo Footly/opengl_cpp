@@ -34,13 +34,12 @@ if(NOT glad_POPULATED)
     add_subdirectory(${glad_SOURCE_DIR} ${glad_BINARY_DIR})
 endif()
 
-#Add the following gcc flags to the CMAKE_C_FLAGS variable
-set(GCC_FLAGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast -Wdouble-promotion -Wformat=2 -Wno-unused-parameter -Wno-missing-field-initializers -Wno-unused-parameter -Wno-missing-field-initializers -Wno-implicit-fallthrough")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_FLAGS}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_FLAGS}")
 
 #Create a main executable and link the GLFW library
 add_executable(basic_integration_opengl main.cpp)
+
+#Add directories interfaces
+target_include_directories(basic_integration_opengl PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 #Link the GLFW library
 target_link_libraries(basic_integration_opengl glfw glad)

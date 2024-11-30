@@ -35,12 +35,14 @@ if(NOT glad_POPULATED)
 endif()
 
 #Add window library
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_FLAGS} -std=c++17")
 
 #Create a main executable and link the GLFW library
 add_executable(${PROJECT_NAME} main.cpp)
 
 #Add directories interfaces
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}) 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}) 
 
 #Link the GLFW library
-target_link_libraries(${PROJECT_NAME} glfw glad)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad)

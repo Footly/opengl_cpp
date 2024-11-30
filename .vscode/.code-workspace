@@ -44,6 +44,29 @@
         "editor.tabSize": 4,
         "C_Cpp.clang_format_style": "file",
         "cmake.options.statusBarVisibility": "visible",
+        "cmake.options.advanced": {
+            "buildPreset": {
+                "statusBarVisibility": "hidden"
+            },
+            "testPreset": {
+                "statusBarVisibility": "hidden"
+            },
+            "packagePreset": {
+                "statusBarVisibility": "hidden"
+            },
+            "cpack": {
+                "statusBarVisibility": "hidden"
+            },
+            "ctest": {
+                "statusBarVisibility": "hidden"
+            },
+            "workflowPreset": {
+                "statusBarVisibility": "hidden"
+            },
+            "workflow": {
+                "statusBarVisibility": "hidden"
+            }
+        },
         "VsCodeTaskButtons.showCounter": false,
         "VsCodeTaskButtons.tasks": [],
         "files.associations": {

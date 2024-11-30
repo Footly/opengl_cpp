@@ -19,6 +19,9 @@ RUN apt-get -y install mingw-w64
 # Install pkg-config
 RUN apt-get -y install pkg-config
 
+#Install x11-apps
+RUN apt-get -y install x11-apps
+
 #export directories as environment variables
 ENV WORKSPACE_PATH=/workspaces/opengl_cpp
 ENV TASKS_PATH=$WORKSPACE_PATH/tools/tasks
