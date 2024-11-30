@@ -50,6 +50,9 @@ class Window {
   void startup() {
     //Process Inputs
     processInput();
+    //Clear the screen
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
   }
 
   //Create render function
@@ -64,6 +67,7 @@ class Window {
   operator bool() const { return !glfwWindowShouldClose(window_); }
 
  private:
+  enum class fillMode { FILL, LINE };
   int width_{800};
   int height_{600};
   const char* title_{"Window"};
@@ -71,8 +75,17 @@ class Window {
 
   //Process input
   void processInput() {
-    if (glfwGetKey(window_, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    //Close the window
+    if (glfwGetKey(window_, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       glfwSetWindowShouldClose(window_, true);
+    }
+    //Check for the p key to toggle between fill and line mode
+    if (glfwGetKey(window_, GLFW_KEY_P) == GLFW_PRESS) {
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    } else {
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
   }
   //Swap buffers
   void swapBuffers() { glfwSwapBuffers(window_); }
