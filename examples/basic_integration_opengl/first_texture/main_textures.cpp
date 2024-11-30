@@ -2,7 +2,6 @@
 #include "Vertex.h"
 #include "Shader.h"
 #include <vector>
-#include <cmath>
 
 using namespace shaders;
 

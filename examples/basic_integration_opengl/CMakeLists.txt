@@ -33,9 +33,26 @@ if(NOT glad_POPULATED)
     set(GLAD_GENERATOR "c" CACHE STRING "Language to generate the binding for")
     add_subdirectory(${glad_SOURCE_DIR} ${glad_BINARY_DIR})
 endif()
+# Add stb_image library using ExternalProject
+include(ExternalProject)
+
+ExternalProject_Add(
+    stb
+    GIT_REPOSITORY https://github.com/nothings/stb.git
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+    SOURCE_DIR ${CMAKE_BINARY_DIR}/stb-src
+    BINARY_DIR ${CMAKE_BINARY_DIR}/stb-build
+)
+
+add_library(stb_image INTERFACE)
+add_dependencies(stb_image stb)
+target_include_directories(stb_image INTERFACE ${CMAKE_BINARY_DIR}/stb-src)
+target_compile_definitions(stb_image INTERFACE STB_IMAGE_IMPLEMENTATION)
 
 #set libraries dependencies
-set(LIBS glfw glad)
+set(LIBS glfw glad stb_image)
 
 #add subdirectories for each executable
 add_subdirectory(first_shader)
