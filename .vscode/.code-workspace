@@ -3,6 +3,14 @@
         {
             "name": "root",
             "path": ".."
+        },
+        {
+            "name": "3d_viewer",
+            "path": "../examples/3d_viewer"
+        },
+        {
+            "name": "basic_integration_opengl",
+            "path": "../examples/basic_integration_opengl"
         }
     ],
     "tasks": {
@@ -34,40 +42,82 @@
         "git-graph.showStatusBarItem": false,
         "editor.formatOnSave": true,
         "editor.tabSize": 4,
-        "cmake.options.statusBarVisibility": "hidden",
-        "cmake.configureOnOpen": false,
-        "cmake.options.advanced": {
-            "folder": {
-                "statusBarVisibility": "visible"
-            },
-            "build": {
-                "inheritDefault": "hidden"
-            },
-            "debug": {
-                "inheritDefault": "hidden"
-            },
-            "launch": {
-                "inheritDefault": "hidden"
-            }
-        },
+        "C_Cpp.clang_format_style": "file",
+        "cmake.options.statusBarVisibility": "visible",
         "VsCodeTaskButtons.showCounter": false,
-        "VsCodeTaskButtons.tasks": [
+        "VsCodeTaskButtons.tasks": [],
+        "files.associations": {
+            "*.puml": "plantuml",
+            "iostream": "cpp",
+            "array": "cpp",
+            "atomic": "cpp",
+            "bit": "cpp",
+            "*.tcc": "cpp",
+            "cctype": "cpp",
+            "clocale": "cpp",
+            "cmath": "cpp",
+            "cstdarg": "cpp",
+            "cstddef": "cpp",
+            "cstdint": "cpp",
+            "cstdio": "cpp",
+            "cstdlib": "cpp",
+            "cwchar": "cpp",
+            "cwctype": "cpp",
+            "deque": "cpp",
+            "unordered_map": "cpp",
+            "vector": "cpp",
+            "exception": "cpp",
+            "algorithm": "cpp",
+            "functional": "cpp",
+            "iterator": "cpp",
+            "memory": "cpp",
+            "memory_resource": "cpp",
+            "numeric": "cpp",
+            "optional": "cpp",
+            "random": "cpp",
+            "string": "cpp",
+            "string_view": "cpp",
+            "system_error": "cpp",
+            "tuple": "cpp",
+            "type_traits": "cpp",
+            "utility": "cpp",
+            "fstream": "cpp",
+            "initializer_list": "cpp",
+            "iosfwd": "cpp",
+            "istream": "cpp",
+            "limits": "cpp",
+            "new": "cpp",
+            "ostream": "cpp",
+            "sstream": "cpp",
+            "stdexcept": "cpp",
+            "streambuf": "cpp",
+            "cinttypes": "cpp",
+            "typeinfo": "cpp"
+        }
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
             {
-                "label": "Clean🧹",
-                "task": "cleaning"
-            },
-            {
-                "label": "Configure🧰",
-                "task": "configuring"
-            },
-            {
-                "label": "Build🔨",
-                "task": "building"
-            },
-            {
-                "label": "Run🚀",
-                "task": "running"
+                "name": "Launch",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "/workspaces/opengl_cpp/examples/basic_integration_opengl/build/basic_integration_opengl",
+                "args": [],
+                "stopAtEntry": false,
+                "cwd": "/workspaces/opengl_cpp/examples/basic_integration_opengl/build",
+                "environment": [],
+                "externalConsole": false,
+                "MIMode": "gdb",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
             }
-        ]
+        ],
+        "compounds": []
     }
 }

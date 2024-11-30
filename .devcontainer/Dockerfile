@@ -16,8 +16,11 @@ RUN apt-get -y install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-
 # Install MinGW
 RUN apt-get -y install mingw-w64
 
+# Install pkg-config
+RUN apt-get -y install pkg-config
+
 #export directories as environment variables
-ENV WORKSPACE_PATH=/workspaces/tower_defense
+ENV WORKSPACE_PATH=/workspaces/opengl_cpp
 ENV TASKS_PATH=$WORKSPACE_PATH/tools/tasks
 ENV CMAKE_SCRIPTS_PATH=$WORKSPACE_PATH/tools/cmake
 
